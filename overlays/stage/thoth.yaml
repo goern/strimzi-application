@@ -1,0 +1,7 @@
+apiVersion: kafka.strimzi.io/v1beta1
+kind: Kafka
+metadata:
+  name: thoth
+spec:
+  kafka:
+    replicas: 5
