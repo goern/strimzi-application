@@ -9,6 +9,8 @@ spec:
     listeners:
       plain: {}
       tls: {}
+      external:
+        type: route
     storage:
       type: ephemeral
     config:
