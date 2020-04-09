@@ -19,10 +19,7 @@ spec:
           imagePullPolicy: Always
           env:
           - name: KAFKA_BROKERCONNECT
-            valueFrom:
-              configMapKeyRef:
-                key: kafka-bootstrap-servers
-                name: thoth
+            value: thoth-kafka-bootstrap-thoth-int.apps.thoth01.lab.upshift.rdu2.redhat.com:443
           - name: KAFKA_PROPERTIES
             valueFrom:
               secretKeyRef:
