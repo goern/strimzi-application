@@ -1,5 +1,5 @@
 apiVersion:  apps.openshift.io/v1
-kind: Deployment
+kind: DeploymentConfig
 metadata:
   name: kafkatest
   labels:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: kafdrop
-          image: obsidiandynamics/kafdrop:latest
+          image: kpostoffice/kafdrop:latest
           imagePullPolicy: Always
           env:
           - name: KAFKA_BROKERCONNECT
