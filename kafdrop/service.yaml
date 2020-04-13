@@ -6,12 +6,10 @@ metadata:
   labels:
     name: kafdrop
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 9000
-      targetPort: http
+      targetPort: 9000
       protocol: TCP
-      name: http
-      nodePort: 30900
   selector:
     name: kafkatest
