@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: kafdrop
-          image: kpostoffice/kafdrop:latest
+          image: obsidiandynamics/kafdrop:latest
           imagePullPolicy: Always
           env:
           - name: KAFKA_BROKERCONNECT
@@ -25,31 +25,21 @@ spec:
               secretKeyRef:
                 key: kafka-properties
                 name: kafka-secret
+          - name: KAFKA_PROPERTIES_FILE
+            value: /tmp/kafka.properties
           - name: KAFKA_TRUSTSTORE
             valueFrom:
               secretKeyRef:
                 key: kafka-truststore
                 name: kafka-secret
-          - name: KAFKA_KEYSTORE
-            value: ""
+          - name: KAFKA_TRUSTSTORE_FILE
+            value: "/tmp/truststore.jks"
           - name: JVM_OPTS
             value: "-Xms32M -Xmx64M"
           - name: JMX_PORT
             value: "8686"
-          - name: HOST
-            value: ""
-          - name: SERVER_SERVLET_CONTEXTPATH
-            value: ""
-          - name: KAFKA_PROPERTIES_FILE
-            value: ""
-          - name: KAFKA_TRUSTSTORE_FILE
-            value: ""
-          - name: KAFKA_KEYSTORE_FILE
-            value: ""
           - name: SERVER_PORT
             value: "9000"
-          - name: CMD_ARGS
-            value: ""
           resources:
             requests:
               cpu: 10m
