@@ -24,6 +24,8 @@ spec:
             value: /mnt/secret/kafka.properties
           - name: KAFKA_TRUSTSTORE_FILE
             value: "/mnt/secrets/truststore.jks"
+          - name: KAFKA_KEYSTORE_FILE
+            value: "/mnt/secrets/keystore.jks"
           - name: JVM_OPTS
             value: "-Xms32M -Xmx64M"
           - name: JMX_PORT
@@ -48,5 +50,7 @@ spec:
                 path: truststore.jks
               - key: kafka-properties
                 path: kafka.properties
+              - key: kafka-keystore
+                path: keystore.jks
 
             
