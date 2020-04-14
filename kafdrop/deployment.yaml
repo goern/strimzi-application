@@ -20,20 +20,10 @@ spec:
           env:
           - name: KAFKA_BROKERCONNECT
             value: thoth-kafka-bootstrap-thoth-int.apps.thoth01.lab.upshift.rdu2.redhat.com:443
-          - name: KAFKA_PROPERTIES
-            valueFrom:
-              secretKeyRef:
-                key: kafka-properties
-                name: kafka-secret
           - name: KAFKA_PROPERTIES_FILE
-            value: /tmp/kafka.properties
-          - name: KAFKA_TRUSTSTORE
-            valueFrom:
-              secretKeyRef:
-                key: kafka-truststore
-                name: kafka-secret
+            value: /mnt/secret/kafka.properties
           - name: KAFKA_TRUSTSTORE_FILE
-            value: "/tmp/truststore.jks"
+            value: "/mnt/secrets/truststore.jks"
           - name: JVM_OPTS
             value: "-Xms32M -Xmx64M"
           - name: JMX_PORT
@@ -44,5 +34,19 @@ spec:
             requests:
               cpu: 10m
               memory: 256Mi
+
+          volumeMounts:
+            - name: secrets
+              mountPath: /mnt/secrets
+              readOnly: true
+      volumes:
+        - name: secrets
+          secret:
+            secretName: "kafka-secret"
+            items:
+              - key: kafka-truststore
+                path: truststore.jks
+              - key: kafka-properties
+                path: kafka.properties
 
             
