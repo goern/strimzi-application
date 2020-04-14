@@ -19,13 +19,11 @@ spec:
           imagePullPolicy: Always
           env:
           - name: KAFKA_BROKERCONNECT
-            value: thoth-kafka-bootstrap-thoth-int.apps.thoth01.lab.upshift.rdu2.redhat.com:443
+            value: thoth-kafka-bootstrap-strimzi-kpostlet-test.apps.thoth01.lab.upshift.rdu2.redhat.com:443
           - name: KAFKA_PROPERTIES_FILE
             value: /mnt/secret/kafka.properties
           - name: KAFKA_TRUSTSTORE_FILE
             value: "/mnt/secrets/truststore.jks"
-          - name: KAFKA_KEYSTORE_FILE
-            value: "/mnt/secrets/keystore.jks"
           - name: JVM_OPTS
             value: "-Xms32M -Xmx64M"
           - name: JMX_PORT
@@ -41,16 +39,21 @@ spec:
             - name: secrets
               mountPath: /mnt/secrets
               readOnly: true
+            - name: properties
+              mountPath: mnt/properties
+              readOnly: true
       volumes:
         - name: secrets
           secret:
+            secretName: "thoth-cluster-ca-cert"
+            items:
+              - key: ca.p12
+                path: truststore.jks
+        - name: properties
+          secret:
             secretName: "kafka-secret"
             items:
-              - key: kafka-truststore
-                path: truststore.jks
               - key: kafka-properties
                 path: kafka.properties
-              - key: kafka-keystore
-                path: keystore.jks
 
             
