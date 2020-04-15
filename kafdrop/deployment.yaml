@@ -21,9 +21,11 @@ spec:
           - name: KAFKA_BROKERCONNECT
             value: thoth-kafka-bootstrap-strimzi-kpostlet-test.apps.thoth01.lab.upshift.rdu2.redhat.com:443
           - name: KAFKA_PROPERTIES_FILE
-            value: /mnt/secret/kafka.properties
+            value: /mnt/properties/kafka.properties
           - name: KAFKA_TRUSTSTORE_FILE
             value: "/mnt/secrets/truststore.jks"
+          - name: KAFKA_KEYSTORE_FILE
+            value: "/mnt/keystore/keystore.jks"
           - name: JVM_OPTS
             value: "-Xms32M -Xmx64M"
           - name: JMX_PORT
@@ -42,6 +44,9 @@ spec:
             - name: properties
               mountPath: mnt/properties
               readOnly: true
+            - name: keystore
+              mountPath: mnt/keystore
+              readOnly: true
       volumes:
         - name: secrets
           secret:
@@ -55,5 +60,11 @@ spec:
             items:
               - key: kafka-properties
                 path: kafka.properties
+        - name: keystore
+          secret:
+            secretName: "thoth-cluster-ca-cert"
+            items:
+              - key: ca.p12
+                path: keystore.jks
 
             
