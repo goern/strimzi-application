@@ -32,9 +32,11 @@ spec:
             value: "8686"
           - name: SERVER_PORT
             value: "9000"
+          - name: CMD_ARGS
+            value: "--verbose"
           resources:
             requests:
-              cpu: 10m
+              cpu: 20m
               memory: 256Mi
 
           volumeMounts:
@@ -42,10 +44,10 @@ spec:
               mountPath: /mnt/secrets
               readOnly: true
             - name: properties
-              mountPath: mnt/properties
+              mountPath: /mnt/properties
               readOnly: true
             - name: keystore
-              mountPath: mnt/keystore
+              mountPath: /mnt/keystore
               readOnly: true
       volumes:
         - name: secrets
@@ -66,5 +68,3 @@ spec:
             items:
               - key: ca.p12
                 path: keystore.jks
-
-            
