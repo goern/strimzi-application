@@ -24,6 +24,8 @@ spec:
             value: "/mnt/secrets/truststore.jks"
           - name: KAFKA_KEYSTORE_FILE
             value: "/mnt/keystore/keystore.jks"
+          - name: KAFKA_PROPERTIES_FILE
+            value: "/tmp/kafka.properties"
           - name: USE_KAFKA_PROPS
             value: "1"
           - name: KAFKA_PROPS_SECURITY_PROTOCOL
