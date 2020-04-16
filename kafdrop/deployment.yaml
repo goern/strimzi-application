@@ -20,26 +20,26 @@ spec:
           env:
           - name: KAFKA_BROKERCONNECT
             value: thoth-kafka-bootstrap-strimzi-kpostlet-test.apps.thoth01.lab.upshift.rdu2.redhat.com:443
-          - name: KAFKA_PROPERTIES_FILE
-            value: /tmp/kafka.properties
           - name: KAFKA_TRUSTSTORE_FILE
             value: "/mnt/secrets/truststore.jks"
           - name: KAFKA_KEYSTORE_FILE
             value: "/mnt/keystore/keystore.jks"
+          - name: USE_KAFKA_PROPS
+            value: "1"
           - name: KAFKA_PROPS_SECURITY_PROTOCOL
             value: SSL
           - name: KAFKA_PROPS_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM
             value: " "
           - name: KAFKA_PROPS_SSL_TRUSTSTORE_PASSWORD
             valueFrom:
-              secretKeyReft:
-                key: "thoth-cluster-ca-cert"
-                name: ca.password
+              secretKeyRef:
+                name: "thoth-cluster-ca-cert"
+                key: ca.password
           - name: KAFKA_PROPS_SSL_KEYSTORE_PASSWORD
             valueFrom:
-              secretKeyReft:
-                key: "thoth-cluster-ca-cert"
-                name: ca.password
+              secretKeyRef:
+                name: "thoth-cluster-ca-cert"
+                key: ca.password
           - name: JVM_OPTS
             value: "-Xms32M -Xmx64M"
           - name: JMX_PORT
@@ -56,9 +56,6 @@ spec:
           volumeMounts:
             - name: secrets
               mountPath: /mnt/secrets
-              readOnly: true
-            - name: properties
-              mountPath: /mnt/properties
               readOnly: true
             - name: keystore
               mountPath: /mnt/keystore
