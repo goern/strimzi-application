@@ -15,17 +15,31 @@ spec:
     spec:
       containers:
         - name: kafdrop
-          image: obsidiandynamics/kafdrop:latest
+          image: kpostoffice/kafdrop:latest
           imagePullPolicy: Always
           env:
           - name: KAFKA_BROKERCONNECT
             value: thoth-kafka-bootstrap-strimzi-kpostlet-test.apps.thoth01.lab.upshift.rdu2.redhat.com:443
           - name: KAFKA_PROPERTIES_FILE
-            value: /mnt/properties/kafka.properties
+            value: /tmp/kafka.properties
           - name: KAFKA_TRUSTSTORE_FILE
             value: "/mnt/secrets/truststore.jks"
           - name: KAFKA_KEYSTORE_FILE
             value: "/mnt/keystore/keystore.jks"
+          - name: KAFKA_PROPS_SECURITY_PROTOCOL
+            value: SSL
+          - name: KAFKA_PROPS_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM
+            value: " "
+          - name: KAFKA_PROPS_SSL_TRUSTSTORE_PASSWORD
+            valueFrom:
+              secretKeyReft:
+                key: "thoth-cluster-ca-cert"
+                name: ca.password
+          - name: KAFKA_PROPS_SSL_KEYSTORE_PASSWORD
+            valueFrom:
+              secretKeyReft:
+                key: "thoth-cluster-ca-cert"
+                name: ca.password
           - name: JVM_OPTS
             value: "-Xms32M -Xmx64M"
           - name: JMX_PORT
@@ -56,12 +70,6 @@ spec:
             items:
               - key: ca.p12
                 path: truststore.jks
-        - name: properties
-          secret:
-            secretName: "properties"
-            items:
-              - key: kafka-properties
-                path: kafka.properties
         - name: keystore
           secret:
             secretName: "thoth-cluster-ca-cert"
