@@ -19,7 +19,7 @@ spec:
           imagePullPolicy: Always
           env:
           - name: KAFKA_BROKERCONNECT
-            value: thoth-kafka-bootstrap-thoth-int.apps.thoth01.lab.upshift.rdu2.redhat.com:443
+            value: thoth-kafka-bootstrap-thoth-infra-stage.apps.thoth01.lab.upshift.rdu2.redhat.com:443
           - name: KAFKA_TRUSTSTORE_FILE
             value: "/mnt/secrets/truststore.jks"
           - name: KAFKA_KEYSTORE_FILE
