@@ -6,6 +6,7 @@ spec:
   kafka:
     version: "2.4.0"
     replicas: 2
+    security.protocol: SSL
     listeners:
       plain: {}
       tls: {}
